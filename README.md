@@ -17,3 +17,15 @@
   - Creating various forms of documentation.
   - Creating a license.
   - Creating a source distribution (meta-data) to ensure program works on everyone’s computer. -Testing and publishing package on PyPl.
+
+## Domain model
+- User will have the option to pip install
+
+![domain](img/domain.png)
+## Wire frame
+![download](img/top-level-wf.png)
+![software](img/software-wf.jpeg)
+![document](img/doc-wf.jpeg)
+![image](img/img-wf.jpeg)
+![other](img/other-wf.jpeg)
+
