@@ -4,6 +4,7 @@
 
 1. Summary of idea:
 
+
 - An app that takes all downloaded files and automatically puts them in the proper folder based on the file type. For example, an image (.jpg or .png) would automatically go into the images folder from downloads.
 
 2. Problem or pain point:
@@ -28,4 +29,3 @@
 ![document](img/doc-wf.jpeg)
 ![image](img/img-wf.jpeg)
 ![other](img/other-wf.jpeg)
-
