@@ -85,3 +85,60 @@ def test_move_file_others():
     expected = True
     assert actual == expected 
     os.remove(f'/Users/{user}/Downloads/others/test.zip')
+
+# test for dupe files
+def test_dupe_files_documents(): 
+    if os.path.isfile(f'/Users/{user}/Downloads/documents/test.txt'):
+        os.remove(f'/Users/{user}/Downloads/documents/test.txt')
+    test = f'/Users/{user}/Downloads/test.txt'
+    Path(test).touch()
+    move_files(['test.txt'])
+    Path(test).touch()
+    move_files(['test.txt'])
+    actual = os.path.isfile(f'/Users/{user}/Downloads/documents/test_1.txt')
+    expected = True
+    assert actual == expected 
+    os.remove(f'/Users/{user}/Downloads/documents/test_1.txt')
+    os.remove(f'/Users/{user}/Downloads/documents/test.txt')
+
+def test_dupe_files_media(): 
+    if os.path.isfile(f'/Users/{user}/Downloads/media/test.jpg'):
+        os.remove(f'/Users/{user}/Downloads/media/test.jpg')
+    test = f'/Users/{user}/Downloads/test.jpg'
+    Path(test).touch()
+    move_files(['test.jpg'])
+    Path(test).touch()
+    move_files(['test.jpg'])
+    actual = os.path.isfile(f'/Users/{user}/Downloads/media/test_1.jpg')
+    expected = True
+    assert actual == expected 
+    os.remove(f'/Users/{user}/Downloads/media/test_1.jpg')
+    os.remove(f'/Users/{user}/Downloads/media/test.jpg')
+
+def test_dupe_files_software(): 
+    if os.path.isfile(f'/Users/{user}/Downloads/software/test.exe'):
+        os.remove(f'/Users/{user}/Downloads/software/test.exe')
+    test = f'/Users/{user}/Downloads/test.exe'
+    Path(test).touch()
+    move_files(['test.exe'])
+    Path(test).touch()
+    move_files(['test.exe'])
+    actual = os.path.isfile(f'/Users/{user}/Downloads/software/test_1.exe')
+    expected = True
+    assert actual == expected 
+    os.remove(f'/Users/{user}/Downloads/software/test_1.exe')
+    os.remove(f'/Users/{user}/Downloads/software/test.exe')
+
+def test_dupe_files_others(): 
+    if os.path.isfile(f'/Users/{user}/Downloads/others/test.zip'):
+        os.remove(f'/Users/{user}/Downloads/others/test.zip')
+    test = f'/Users/{user}/Downloads/test.zip'
+    Path(test).touch()
+    move_files(['test.zip'])
+    Path(test).touch()
+    move_files(['test.zip'])
+    actual = os.path.isfile(f'/Users/{user}/Downloads/others/test_1.zip')
+    expected = True
+    assert actual == expected 
+    os.remove(f'/Users/{user}/Downloads/others/test_1.zip')
+    os.remove(f'/Users/{user}/Downloads/others/test.zip')
