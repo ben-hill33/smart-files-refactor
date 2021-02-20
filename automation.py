@@ -25,7 +25,6 @@ folders_to_create = [root_dir, media_dir,
 
 
 def create_dir(directories: list):
-    # lets create a function that creates files labeled above if they don't already exist
     if type(directories) != list:
         raise TypeError('Must be a list!')
     try:
@@ -36,9 +35,6 @@ def create_dir(directories: list):
         print(error)
 
 
-# def get_non_hidden_files_except_current_file(root_dir):
-#     [f for f in os.listdir(root_dir) if os.path.isfile(f) and not f.startswith('.')]
-
 def get_files(root_dir):
     files = []
     for file in os.listdir(root_dir):
@@ -46,6 +42,7 @@ def get_files(root_dir):
             # print('ITS WORKING')
             files.append(file)
     return files
+
 
 def move_files(files):
     for file in files:
@@ -79,6 +76,7 @@ def move_files(files):
             move(root_dir + file, others_dir)
             print(f"file {file} moved to {others_dir}")
 
+
 def handle_dupe_files(dir, file):
     count = 1
     split_array = file.split(".")
@@ -90,19 +88,8 @@ def handle_dupe_files(dir, file):
         new_file_name = begins_with + "_" + str(count) + file_extension
     return new_file_name
 
-if __name__ == "__main__":
-    # create_dir(folders_to_create)
-    # print(os.listdir(root_dir))
-    # files = get_files(root_dir)
-    # files = get_files(root_dir)
-    # print(files)
-    # move_files(files)
-    test1 = f'/Users/{user}/Downloads/test.txt'
-    # test2 = f'/Users/{user}/Downloads/test.txt'
-    # test3 = f'/Users/{user}/Downloads/test.txt'
-    Path(test1).touch()
-    # Path(test2).touch()
-    # Path(test3).touch()
-    move_files(['test.txt'])
 
-    
+if __name__ == "__main__":
+    create_dir(folders_to_create)
+    files = get_files(root_dir)
+    move_files(files)
