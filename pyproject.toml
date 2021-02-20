@@ -11,6 +11,9 @@ repository = "https://github.com/ashcaz/smart-files/tree/main"
 include = [
   "LICENSE",
 ]
+packages = [
+  { include = "automation.py" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -22,6 +25,7 @@ coverage = "^5.4"
 autopep8 = "^1.5.5"
 
 [tool.poetry.scripts]
+poetry = 'poetry.console:run'
 
 
 [build-system]
