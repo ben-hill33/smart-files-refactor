@@ -1,9 +1,12 @@
 # smart-files
 
+## Instructions
+
+This project uses Python Poetry as a virtual environment in order to run
+
 ### Ashley Casimir, Sean Hawkins, Ben Hill, Karlo Mangubat
 
 1. Summary of idea:
-
 
 - An app that takes all downloaded files and automatically puts them in the proper folder based on the file type. For example, an image (.jpg or .png) would automatically go into the images folder from downloads.
 
