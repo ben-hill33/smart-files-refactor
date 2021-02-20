@@ -47,6 +47,7 @@ def get_files(root_dir):
             files.append(file)
     return files
 
+
 def move_files(files):
     for file in files:
         # file moved and overwritten if already exists
@@ -79,6 +80,7 @@ def move_files(files):
             move(root_dir + file, others_dir)
             print(f"file {file} moved to {others_dir}")
 
+
 def handle_dupe_files(dir, file):
     count = 1
     split_array = file.split(".")
@@ -89,6 +91,7 @@ def handle_dupe_files(dir, file):
         count += 1
         new_file_name = begins_with + "_" + str(count) + file_extension
     return new_file_name
+
 
 if __name__ == "__main__":
     # create_dir(folders_to_create)
@@ -104,5 +107,3 @@ if __name__ == "__main__":
     # Path(test2).touch()
     # Path(test3).touch()
     move_files(['test.txt'])
-
-    
