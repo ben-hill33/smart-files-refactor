@@ -20,7 +20,7 @@ doc_types = ('.doc', '.docx', '.txt', '.pdf', '.xls', '.ppt', '.xlsx', '.pptx')
 media_types = ('.jpg', '.jpeg', '.png', '.svg', '.gif', '.tif', '.tiff')
 software_types = ('.exe', '.pkg', '.dmg')
 
-folders_to_create = [root_dir, media_dir,
+folders_to_create = [media_dir,
                      documents_dir, others_dir, software_dir]
 
 
@@ -88,8 +88,9 @@ def handle_dupe_files(dir, file):
         new_file_name = begins_with + "_" + str(count) + file_extension
     return new_file_name
 
-
-if __name__ == "__main__":
+def main():
     create_dir(folders_to_create)
     files = get_files(root_dir)
     move_files(files)
+
+    
