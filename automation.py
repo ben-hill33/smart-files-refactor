@@ -88,8 +88,62 @@ def handle_dupe_files(dir, file):
         new_file_name = begins_with + "_" + str(count) + file_extension
     return new_file_name
 
+def check_if_job_exists(job):
+    python_path = sys.executable
+    script_path = os.path.realpath(__file__)
+    command = f"{python_path} {script_path}"
 
-if __name__ == "__main__":
-    create_dir(folders_to_create)
-    files = get_files(root_dir)
-    move_files(files)
+    if str(job) == f"* * * * * {command}":
+        print("Every minute crontab already exists", item)
+        return True
+    elif str(job) == f"0 * * * * {command}":
+        print("Hourly crontab job already exists", item)
+        return True
+    elif str(job) == f"0 0 * * * {command}":
+        print("Daily crontab job already exists", item)
+        return True
+    elif str(job) == f"0 0 1 * * {command}":
+        print("Monthly crontab job already exists", item)
+        return True
+
+    return False
+
+
+def cron_min():
+    python_path = sys.executable
+    script_path = os.path.realpath(__file__)
+    cron = CronTab(user=user)
+    command = f"{python_path} {script_path}"
+    commands = cron.find_command(command)
+    exists = False
+    for item in commands:
+        if str(item) == f"* * * * * {command}":
+            print("crontab job actually exists", item)
+            exists = True
+            break
+    if not exists:
+        job = cron.new(command=command)
+        job.minute.every(1)
+        job.enable()
+        cron.write()
+        print("crontab does not exist and added successfully!")
+
+
+def cron_hour():
+    python_path = sys.executable
+    script_path = os.path.realpath(__file__)
+    cron = CronTab(user=user)
+    command = f"{python_path} {script_path}"
+    commands = cron.find_command(command)
+    exists = False
+    for item in commands:
+        if str(item) == f"0 * * * * {command}":
+            print("crontab actually exists", item)
+            exists = True
+            break
+    if not exists:
+        job = cron.new(command=command)
+        job.hour.every(1)
+        job.enable()
+        cron.write()
+        print("crontab does not exist and added successfully!")

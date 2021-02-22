@@ -20,6 +20,7 @@ coverage = "^5.4"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.5"
+black = {version = "^20.8b1", allow-prereleases = true}
 
 [tool.poetry.scripts]
 
