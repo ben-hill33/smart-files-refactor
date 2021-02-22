@@ -8,12 +8,7 @@ readme = "README.md"
 license = "MIT"
 homepage = "https://github.com/ashcaz/smart-files/tree/main"
 repository = "https://github.com/ashcaz/smart-files/tree/main"
-include = [
-  "LICENSE",
-]
-packages = [
-  { include = "automation.py" }
-]
+
 
 packages = [
     { include = "scripts" }
