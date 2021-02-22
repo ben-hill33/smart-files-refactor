@@ -13,12 +13,16 @@ def smart_files():
 def show_files():
     """Will show you files currently in downloads file"""
     files = get_files(root_dir)
-    print("\nFiles not yet sorted:\n")
 
-    for item in files:
-        click.secho(item, fg="magenta")
+    if not len(files):
+        click.secho("\nAll files have been sorted!\n")
+    else:
+        print("\nFiles not yet sorted:\n")
 
-    print("\n")
+        for item in files:
+            click.secho(item, fg="magenta")
+
+        print("\n")
 
 
 @smart_files.command()

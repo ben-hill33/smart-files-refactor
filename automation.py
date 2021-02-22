@@ -5,25 +5,33 @@ from pathlib import Path
 import click
 from crontab import CronTab
 
+# User Variable
 user = os.getenv("USER")
 
+# Directory Variables
 root_dir = f"/Users/{user}/Downloads/"
-
 media_dir = f"/Users/{user}/Downloads/media/"
-
 documents_dir = f"/Users/{user}/Downloads/documents/"
-
 others_dir = f"/Users/{user}/Downloads/others/"
-
 software_dir = f"/Users/{user}/Downloads/software/"
 
+# Directories List
+folders_to_create = [media_dir, documents_dir, others_dir, software_dir]
+
+# Cron Vairables
+python_path = sys.executable
+script_path = os.path.realpath(__file__)
+cron = CronTab(user=user)
+command = f"{python_path} {script_path}"
+minute = f"* * * * * {command}"
+hourly = f"0 * * * * {command}"
+daily = f"0 0 * * * {command}"
+monthly = f"0 0 1 * * {command}"
 
 # category by file types
 doc_types = (".doc", ".docx", ".txt", ".pdf", ".xls", ".ppt", ".xlsx", ".pptx")
 media_types = (".jpg", ".jpeg", ".png", ".svg", ".gif", ".tif", ".tiff")
 software_types = (".exe", ".pkg", ".dmg")
-
-folders_to_create = [media_dir, documents_dir, others_dir, software_dir]
 
 
 def create_dir(directories: list):
@@ -91,27 +99,6 @@ def handle_dupe_files(dir, file):
     return new_file_name
 
 
-def check_if_job_exists(job):
-    python_path = sys.executable
-    script_path = os.path.realpath(__file__)
-    command = f"{python_path} {script_path}"
-
-    if str(job) == f"* * * * * {command}":
-        print("Every minute crontab already exists", item)
-        return True
-    elif str(job) == f"0 * * * * {command}":
-        print("Hourly crontab job already exists", item)
-        return True
-    elif str(job) == f"0 0 * * * {command}":
-        print("Daily crontab job already exists", item)
-        return True
-    elif str(job) == f"0 0 1 * * {command}":
-        print("Monthly crontab job already exists", item)
-        return True
-
-    return False
-
-
 def main():
     create_dir(folders_to_create)
     files = get_files(root_dir)
@@ -119,14 +106,10 @@ def main():
 
 
 def cron_min():
-    python_path = sys.executable
-    script_path = os.path.realpath(__file__)
-    cron = CronTab(user=user)
-    command = f"{python_path} {script_path}"
     commands = cron.find_command(command)
     exists = False
-    for item in commands:
-        if str(item) == f"* * * * * {command}":
+    for job in commands:
+        if str(job) == minute:
             print("crontab job actually exists", item)
             exists = True
             break
@@ -139,14 +122,10 @@ def cron_min():
 
 
 def cron_hour():
-    python_path = sys.executable
-    script_path = os.path.realpath(__file__)
-    cron = CronTab(user=user)
-    command = f"{python_path} {script_path}"
     commands = cron.find_command(command)
     exists = False
-    for item in commands:
-        if str(item) == f"0 * * * * {command}":
+    for job in commands:
+        if str(job) == hourly:
             print("crontab actually exists", item)
             exists = True
             break
