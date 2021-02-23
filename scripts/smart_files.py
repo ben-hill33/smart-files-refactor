@@ -1,12 +1,22 @@
 import click
 from crontab import CronTab
-from automation import *
+from automation import (
+    root_dir,
+    get_files,
+    main,
+    add_cron_job,
+    every_minute,
+    daily,
+    weekly,
+    hourly,
+    monthly,
+)
 
 
 @click.group()
 @click.version_option()
 def smart_files():
-    pass
+    """Smart-files sorts all your downloaded files so you dont have to"""
 
 
 @smart_files.command()
@@ -14,7 +24,7 @@ def show_files():
     """Will show you files currently in downloads file"""
     files = get_files(root_dir)
 
-    if not len(files):
+    if len(files) == 0:
         click.secho("\nAll files have been sorted!\n")
     else:
         print("\nFiles not yet sorted:\n")
@@ -34,10 +44,16 @@ def show_files():
 @smart_files.command()
 def run():
     """Run the Smart-files program on an ad hoc basis"""
-    print("\nRunning Smart-files...\n\n")
-    print("\nMoving Files Now... \n")
-    main()
-    print("\n\nSmart-files run complete!\n\n")
+
+    files = get_files(root_dir)
+
+    if not len(files):
+        click.secho("\nThere aren't any files to move. Great Job!\n")
+    else:
+        print("\nRunning Smart-files...\n\n")
+        print("\nMoving Files Now... \n")
+        main()
+        print("\n\nSmart-files run complete!\n\n")
 
 
 @smart_files.command()
@@ -73,7 +89,6 @@ def run():
 )
 def cron(minutes, hour, day, week, month):
     """Adds a job to the time scheduler called cron"""
-    # print(minutes)
     if hour:
         add_cron_job(hourly)
     elif day:

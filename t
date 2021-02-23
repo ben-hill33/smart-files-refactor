@@ -1,1 +1,0 @@
-* * * * * /Users/alankarlomangubat/codefellows/401/smart-files/.venv/bin/python /Users/alankarlomangubat/codefellows/401/smart-files/automation.py

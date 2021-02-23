@@ -148,5 +148,3 @@ def add_cron_job(frequency: str):
         cron.write()
         click.secho("\nYour cron job has been added successfully!\n")
         return frequency
-
-main()
