@@ -53,7 +53,6 @@ def get_files(root_dir: str) -> list:
     files = []
     for file in os.listdir(root_dir):
         if os.path.isfile(root_dir + file) and not file.startswith("."):
-            # print('ITS WORKING')
             files.append(file)
     return files
 
@@ -117,38 +116,37 @@ def add_cron_job(frequency: str):
     commands = cron.find_command(command)
     exists = False
     for job in commands:
-        # print("JOB: ", job)
-        # print("COMPARE: ", frequency)
-        print(job.comment)
         if str(job) == frequency:
             print(f"\nCurrent Crontab Jobs:\n{cron}\n")
             click.secho("\nThe cron job you requested to update already exists!\n")
             exists = True
             break
-        # if job.comment in comments_list:
-        #     print("you already have a different Smart-files cron job running")
-        #     exists = True
-        #     break
+        if job.comment in comments_list:
+            cron.remove(job)
+            print("Your previous Smart-files cron job has been removed.")
     if not exists:
         job = cron.new(command=command)
         # print(job)
         if frequency == every_minute:
             # print(job)
             job.every().minute()
-            # job.set_comment("sf")
+            job.set_comment("sf every minute")
         elif frequency == hourly:
             job.every().hour()
-            # job.set_comment("sf hourly")
+            job.set_comment("sf hourly")
         elif frequency == daily:
             job.every(1).dom()
-            # job.set_comment("sf daily")
+            job.set_comment("sf daily")
         elif frequency == weekly:
             job.every(7).dows()
-            # job.set_comment("sf weekly")
+            job.set_comment("sf weekly")
         elif frequency == monthly:
             job.every(1).month()
-            # job.set_comment("sf monthly")
+            job.set_comment("sf monthly")
 
         job.enable()
         cron.write()
         click.secho("\nYour cron job has been added successfully!\n")
+        return frequency
+
+main()

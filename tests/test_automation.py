@@ -1,7 +1,10 @@
 import pytest
 import pytest_watch
 import os
-from automation import create_dir, user, folders_to_create, move_files
+from crontab import CronTab
+import click
+from automation import create_dir, user, folders_to_create, move_files, add_cron_job, command, every_minute, hourly, daily, weekly, monthly
+from scripts.smart_files import *
 from pathlib import Path
 
 def test_does_create_file():
@@ -142,3 +145,35 @@ def test_dupe_files_others():
     assert actual == expected 
     os.remove(f'/Users/{user}/Downloads/others/test_1.zip')
     os.remove(f'/Users/{user}/Downloads/others/test.zip')
+
+# Crontab
+def test_crontab_every_minute():
+    job = add_cron_job(every_minute)
+    actual = job[:9]
+    expected = "* * * * *"
+    assert actual == expected
+
+def test_crontab_every_hour():
+    job = add_cron_job(hourly)
+    actual = job[:7]
+    expected = "@hourly"
+    assert actual == expected
+
+def test_crontab_every_day():
+    job = add_cron_job(daily)
+    actual = job[:6]
+    expected = "@daily"
+    assert actual == expected
+
+def test_crontab_weekly():
+    job = add_cron_job(weekly)
+    actual = job[:7]
+    expected = "@weekly"
+    assert actual == expected
+
+def test_crontab_monthly():
+    job = add_cron_job(monthly)
+    actual = job[:8]
+    expected = "@monthly"
+    assert actual == expected
+
