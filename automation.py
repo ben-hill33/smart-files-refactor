@@ -126,9 +126,7 @@ def add_cron_job(frequency: str):
             print("Your previous Smart-files cron job has been removed.")
     if not exists:
         job = cron.new(command=command)
-        # print(job)
         if frequency == every_minute:
-            # print(job)
             job.every().minute()
             job.set_comment("sf every minute")
         elif frequency == hourly:
