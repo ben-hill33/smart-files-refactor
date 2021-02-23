@@ -35,12 +35,6 @@ def show_files():
         print("\n")
 
 
-# @smart_files.command()
-# def show_cronjob():
-#     """Shows active cron job"""
-#     print("Strech goal")
-
-
 @smart_files.command()
 def run():
     """Run the Smart-files program on an ad hoc basis"""
