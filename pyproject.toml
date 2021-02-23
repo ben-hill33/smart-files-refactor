@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "smart-files"
-version = "0.1.0"
+version = "0.1.1"
 description = "Automatically sort files by type in your downloads folder"
 authors = ["BEN <benjamin.hill28@gmail.com>"]
 keywords = ["automation", "downloads", "move", "automatic", "files"]
@@ -8,9 +8,7 @@ readme = "README.md"
 license = "MIT"
 homepage = "https://github.com/ashcaz/smart-files/tree/main"
 repository = "https://github.com/ashcaz/smart-files/tree/main"
-include = [
-  "LICENSE",
-]
+
 
 packages = [
     { include = "scripts" }
