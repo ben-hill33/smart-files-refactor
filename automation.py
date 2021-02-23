@@ -5,28 +5,39 @@ from pathlib import Path
 import click
 from crontab import CronTab
 
+# User Variable
 user = os.getenv("USER")
 
+# Directory Variables
 root_dir = f"/Users/{user}/Downloads/"
-
 media_dir = f"/Users/{user}/Downloads/media/"
-
 documents_dir = f"/Users/{user}/Downloads/documents/"
-
 others_dir = f"/Users/{user}/Downloads/others/"
-
 software_dir = f"/Users/{user}/Downloads/software/"
 
+# Directories List
+folders_to_create = [media_dir, documents_dir, others_dir, software_dir]
+
+# Cron Vairables
+python_path = sys.executable
+script_path = os.path.realpath(__file__)
+cron = CronTab(user=user)
+command = f"{python_path} {script_path}"
+every_minute = f"* * * * * {command}"
+hourly = f"@hourly {command}"
+daily = f"@daily {command}"
+weekly = f"@weekly {command}"
+monthly = f"@monthly {command}"
+comments_list = ["sf every minute", "sf hourly", "sf daily", "sf weekly", "sf monthly"]
 
 # category by file types
 doc_types = (".doc", ".docx", ".txt", ".pdf", ".xls", ".ppt", ".xlsx", ".pptx")
 media_types = (".jpg", ".jpeg", ".png", ".svg", ".gif", ".tif", ".tiff")
 software_types = (".exe", ".pkg", ".dmg")
 
-folders_to_create = [media_dir, documents_dir, others_dir, software_dir]
-
 
 def create_dir(directories: list):
+    """ Creates directories if they dont exist"""
     if type(directories) != list:
         raise TypeError("Must be a list!")
     try:
@@ -37,7 +48,8 @@ def create_dir(directories: list):
         print(error)
 
 
-def get_files(root_dir):
+def get_files(root_dir: str) -> list:
+    """ Collects all non-hidden files and places them into a list """
     files = []
     for file in os.listdir(root_dir):
         if os.path.isfile(root_dir + file) and not file.startswith("."):
@@ -46,7 +58,8 @@ def get_files(root_dir):
     return files
 
 
-def move_files(files):
+def move_files(files: list):
+    """ Moves files to appropriate folder"""
     for file in files:
         # file moved and overwritten if already exists
         if file.endswith(doc_types):
@@ -79,7 +92,8 @@ def move_files(files):
             click.secho(f"file {file} moved to {others_dir}", fg="magenta")
 
 
-def handle_dupe_files(dir, file):
+def handle_dupe_files(dir: str, file: str) -> str:
+    """ Handles duplicate file names """
     count = 1
     split_array = file.split(".")
     file_extension = "." + split_array[1]
@@ -92,31 +106,49 @@ def handle_dupe_files(dir, file):
 
 
 def main():
+    """ Runs Smart-files """
     create_dir(folders_to_create)
     files = get_files(root_dir)
     move_files(files)
 
 
-def cron_min():
-    python_path = sys.executable
-    script_path = os.path.realpath(__file__)
-    cron = CronTab(user=user)
-    command = f"{python_path} {script_path}"
+def add_cron_job(frequency: str):
+    """ Adds a cron job to the users crontab """
     commands = cron.find_command(command)
     exists = False
-    for item in commands:
-        if str(item) == f"* * * * * {command}":
-            print("crontab actually exists", item)
+    for job in commands:
+        # print("JOB: ", job)
+        # print("COMPARE: ", frequency)
+        print(job.comment)
+        if str(job) == frequency:
+            print(f"\nCurrent Crontab Jobs:\n{cron}\n")
+            click.secho("\nThe cron job you requested to update already exists!\n")
             exists = True
             break
+        # if job.comment in comments_list:
+        #     print("you already have a different Smart-files cron job running")
+        #     exists = True
+        #     break
     if not exists:
         job = cron.new(command=command)
-        job.minute.every(1)
+        # print(job)
+        if frequency == every_minute:
+            # print(job)
+            job.every().minute()
+            # job.set_comment("sf")
+        elif frequency == hourly:
+            job.every().hour()
+            # job.set_comment("sf hourly")
+        elif frequency == daily:
+            job.every(1).dom()
+            # job.set_comment("sf daily")
+        elif frequency == weekly:
+            job.every(7).dows()
+            # job.set_comment("sf weekly")
+        elif frequency == monthly:
+            job.every(1).month()
+            # job.set_comment("sf monthly")
+
         job.enable()
         cron.write()
-        print("crontab does not exist and added successfully!")
-
-
-if __name__ == "__main__":
-    cron_min()
-    # cron_check()
+        click.secho("\nYour cron job has been added successfully!\n")
