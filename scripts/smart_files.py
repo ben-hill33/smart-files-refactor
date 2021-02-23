@@ -73,7 +73,7 @@ def run():
 )
 def cron(minutes, hour, day, week, month):
     """Adds a job to the time scheduler called cron"""
-    print(minutes)
+    # print(minutes)
     if hour:
         add_cron_job(hourly)
     elif day:
