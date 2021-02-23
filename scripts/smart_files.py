@@ -1,6 +1,6 @@
 import click
 from crontab import CronTab
-from automation import main, cron_min, get_files, user, root_dir
+from automation import *
 
 
 @click.group()
@@ -25,10 +25,10 @@ def show_files():
         print("\n")
 
 
-@smart_files.command()
-def show_cronjob():
-    """Shows active cron job"""
-    print("Strech goal")
+# @smart_files.command()
+# def show_cronjob():
+#     """Shows active cron job"""
+#     print("Strech goal")
 
 
 @smart_files.command()
@@ -42,10 +42,9 @@ def run():
 
 @smart_files.command()
 @click.option(
-    "--minute",
+    "--minutes",
     "-m",
     is_flag=True,
-    default=True,
     help="Will create a cron job for Smart-files to run every minute",
 )
 @click.option(
@@ -58,7 +57,13 @@ def run():
     "--day",
     "-d",
     is_flag=True,
-    help="Will create a cron job for Smart-files to run once every day",
+    help="Will create a cron job for Smart-files to run once a day",
+)
+@click.option(
+    "--week",
+    "-w",
+    is_flag=True,
+    help="Will create a cron job for Smart-files to run once a week",
 )
 @click.option(
     "--month",
@@ -66,14 +71,20 @@ def run():
     is_flag=True,
     help="Will create a cron job for Smart-files to run once a month",
 )
-def cron(minute, hour, day, month):
+def cron(minutes, hour, day, week, month):
     """Adds a job to the time scheduler called cron"""
-
+    print(minutes)
     if hour:
-        print("Hour picked")
+        add_cron_job(hourly)
     elif day:
-        print("Day Picked")
+        add_cron_job(daily)
+    elif week:
+        add_cron_job(weekly)
     elif month:
-        print("Month Picked")
+        add_cron_job(monthly)
+    elif minutes:
+        add_cron_job(every_minute)
     else:
-        cron_min()
+        print(
+            """Usage: smart-files cron [OPTIONS]\n\n\tAdds a job to the time scheduler called cron\n\nOptions:\n-m, --minutes  Will create a cron job for Smart-files to run every minute\n-h, --hour     Will create a cron job for Smart-files to run every hour\n-d, --day      Will create a cron job for Smart-files to run once every day\n-o, --month    Will create a cron job for Smart-files to run once a month\n--help         Show this message and exit."""
+        )
