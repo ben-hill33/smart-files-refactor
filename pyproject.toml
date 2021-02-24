@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "smart-files"
-version = "0.1.1"
+version = "0.1.5"
 description = "Automatically sort files by type in your downloads folder"
 authors = ["BEN <benjamin.hill28@gmail.com>"]
 keywords = ["automation", "downloads", "move", "automatic", "files"]
