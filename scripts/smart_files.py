@@ -9,7 +9,7 @@ from automation import (
     daily,
     weekly,
     hourly,
-    monthly,
+    monthly
 )
 
 
