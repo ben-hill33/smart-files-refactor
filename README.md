@@ -1,12 +1,59 @@
 # smart-files
-
-## This is a test 
+### Ashley Casimir, Sean Hawkins, Ben Hill, Karlo Mangubat
 
 ## Instructions
 
-This project uses Python Poetry as a virtual environment in order to run
+### Before We Start
 
-### Ashley Casimir, Sean Hawkins, Ben Hill, Karlo Mangubat
+This module utilizes `crontab`.
+
+For Mac ver. 10.15.6 or greater:
+
+1. In order for this module to work properly, we need to grant full-disk access for `cron` upon installation
+
+2. Open Finder and on the top-left corner of the screen, click "Go" and select “Go to folder"
+
+3. Insert this to location: `/usr/sbin/cron` 
+
+4. Select "Go" and locate `cron`
+
+5. Go to System Preferences and then to Security and Privacy
+
+6. Navigate to Full Disk Access and click the lock at the bottom left to unlock
+
+7. Drag `cron` from finder to the list of apps in Full Disk Access. Ensure `cron` is checked prior to closing the window. 
+
+### Quick Start
+1. On your Terminal, navigate to the smart-files repo
+2. Run `poetry install`
+3. Run `poetry run smart-files` to display options
+
+### Add Scheduled Sorting Job
+1. Run `poetry run smart-files cron` to display job frequency options. The result is displayed below:
+```
+Options:
+-m, --minutes  Will create a cron job for Smart-files to run every minute
+-h, --hour     Will create a cron job for Smart-files to run every hour
+-d, --day      Will create a cron job for Smart-files to run once every day
+-o, --month    Will create a cron job for Smart-files to run once a month
+--help         Show this message and exit.
+```
+2. Add the desired command at the end of `poetry run smart-files cron`
+3. For example, the command for running smart-files every minute would be `poetry run smart-files cron -m`
+4. Verify that the crontab job exists by running the command `crontab -l`
+> Note: Running a new smart-files job will overwrite the old smart-files job.
+### Sort Files
+To sort files on an ad hoc basis:
+1. Run `poetry run smart-files run`
+2. Check Downloads folder and verify that the files are sorted to their respective folders. 
+
+### Display Unsorted Files
+To display unsorted files:
+1. Run `poetry run smart-files show-files`
+2. The files displayed are coming from the Downloads folder, excluding the folders smart-files creates
+
+
+## Preparations
 
 1. Summary of idea:
 
