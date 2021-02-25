@@ -36,6 +36,8 @@ For Mac ver. 10.15.6 or greater:
 
 7. Drag `cron` from finder to the list of apps in Full Disk Access. Ensure `cron` is checked prior to closing the window. 
 
+Additionally, we found that some people had trouble with installing with just `pip install` so we recommend if that doesn't work to use `pip3 install`
+
 
 ### Add Scheduled Sorting Job
 1. Run `smart-files cron` to display job frequency options. The result is displayed below:
