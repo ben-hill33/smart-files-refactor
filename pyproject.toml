@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "smart-files"
-version = "0.1.6"
+name = "smart_files"
+version = "0.3.1"
 description = "Automatically sort files by type in your downloads folder"
 authors = ["BEN <benjamin.hill28@gmail.com>"]
 keywords = ["automation", "downloads", "move", "automatic", "files"]
@@ -11,11 +11,12 @@ repository = "https://github.com/ashcaz/smart-files/tree/main"
 
 
 packages = [
-    { include = "scripts" }
+    { include = "scripts" },
+    { include = "automation.py" },
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<4.0"
 pytest-watch = "^4.2.0"
 pytest = "^6.2.2"
 coverage = "^5.4"
