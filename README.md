@@ -18,6 +18,8 @@ This program takes away the hassle of having to deal with the mess and reduces t
 
 ## IMPORTANT
 
+Unfortunately this program is compatible only with macOS and Linux at the moment. Windows users stay tuned!
+
 We discovered while developing this project that macOS's security protocols will block access to cron trying to make changes but won't alert you. In order for smart-files to do its job, you need to give full disk access to cron. Please follow the instructions below
 
 For Mac ver. 10.15.6 or greater:
