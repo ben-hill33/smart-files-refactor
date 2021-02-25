@@ -95,5 +95,5 @@ def cron(minutes, hour, day, week, month):
         add_cron_job(every_minute)
     else:
         print(
-            """Usage: smart-files cron [OPTIONS]\n\n\tAdds a job to the time scheduler called cron\n\nOptions:\n-m, --minutes  Will create a cron job for Smart-files to run every minute\n-h, --hour     Will create a cron job for Smart-files to run every hour\n-d, --day      Will create a cron job for Smart-files to run once every day\n-o, --month    Will create a cron job for Smart-files to run once a month\n--help         Show this message and exit."""
+            """Usage: smart-files cron [OPTIONS]\n\n\tAdds a job to the time scheduler called cron\n\nOptions:\n-m, --minutes  Will create a cron job for Smart-files to run every minute\n-h, --hour     Will create a cron job for Smart-files to run every hour\n-d, --day      Will create a cron job for Smart-files to run once every day\n-w, --week     Will create a cron job for Smart-files to run once a week\n-o, --month    Will create a cron job for Smart-files to run once a month\n--help         Show this message and exit."""
         )
