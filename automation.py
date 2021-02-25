@@ -19,15 +19,14 @@ software_dir = f"/Users/{user}/Downloads/software/"
 folders_to_create = [media_dir, documents_dir, others_dir, software_dir]
 
 # Cron Vairables
-python_path = sys.executable
+cron = CronTab(user=user)
 command = "/usr/local/bin/smart-files run"
 every_minute = f"* * * * * {command}"
 hourly = f"@hourly {command}"
 daily = f"@daily {command}"
 weekly = f"@weekly {command}"
 monthly = f"@monthly {command}"
-comments_list = ["sf every minute", "sf hourly",
-                 "sf daily", "sf weekly", "sf monthly"]
+comments_list = ["sf every minute", "sf hourly", "sf daily", "sf weekly", "sf monthly"]
 
 # category by file types
 doc_types = (".doc", ".docx", ".txt", ".pdf", ".xls", ".ppt", ".xlsx", ".pptx")
@@ -117,8 +116,7 @@ def add_cron_job(frequency: str):
     for job in commands:
         if str(job) == frequency:
             print(f"\nCurrent Crontab Jobs:\n{cron}\n")
-            click.secho(
-                "\nThe cron job you requested to update already exists!\n")
+            click.secho("\nThe cron job you requested to update already exists!\n")
             exists = True
             break
         if job.comment in comments_list:
