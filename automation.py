@@ -19,10 +19,8 @@ software_dir = f"/Users/{user}/Downloads/software/"
 folders_to_create = [media_dir, documents_dir, others_dir, software_dir]
 
 # Cron Vairables
-python_path = sys.executable
-script_path = os.path.realpath(__file__)
 cron = CronTab(user=user)
-command = f"{python_path} {script_path}"
+command = "/usr/local/bin/smart-files run"
 every_minute = f"* * * * * {command}"
 hourly = f"@hourly {command}"
 daily = f"@daily {command}"
